@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+
+<head>
+    <title>Board View</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<div class="container">
+    <!-- 게시글 제목 -->
+    <h2 class="board-title" th:text="${board.boardTitle}">게시글 제목</h2>
+
+    <!-- 게시글 정보 -->
+    <div class="board-details">
+        <table class="board-table">
+            <tr>
+                <th>ID</th>
+                <td th:text="${board.boardWriter}">회원id</td>
+            </tr>
+            <tr>
+                <th>날짜</th>
+                <td th:text="${board.boardDate}">게시 날짜</td>
+            </tr>
+            <tr>
+                <th>조회수</th>
+                <td th:text="${board.boardView}">조회수</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 게시글 내용 -->
+    <div class="board-content">
+        <p th:text="${board.boardContent}">게시글 내용이 표시됩니다.</p>
+    </div>
+
+    <!-- 버튼 그룹 -->
+    <div class="button-group">
+        <a th:href="@{/board/{boardId}/edit (boardId=${board.boardId})}" class="btn btn-edit">수정</a>
+        <a th:href="@{/board/{boardId}/delete (boardId=${board.boardId})}" class="btn btn-delete">삭제</a>
+    </div>
+</div>
+</body>
+
+</html>
