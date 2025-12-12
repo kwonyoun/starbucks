@@ -6,5 +6,12 @@
     <select id="findAll" resultType="com.example.starbucks.dto.StoreDto">
         select * from starbugs_store
     </select>
+    <insert id="insertStoreList" parameterType="com.example.starbucks.dto.StoreDto">
+        INSERT INTO starbugs_store (
+            store_name, x, y, store_type, store_addr
+        ) VALUES (
+            #{storeName}, #{x}, #{y}, #{storeType}, #{storeAddr}
+        )
+    </insert>
 
 </mapper>
