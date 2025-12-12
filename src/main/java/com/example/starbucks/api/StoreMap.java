@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api")
-public class Map {
+public class StoreMap {
 
     private final MapSerivce mapSerivce;
 
