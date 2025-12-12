@@ -4,7 +4,8 @@
 <mapper namespace="com.example.starbucks.dao.OrderDao">
 
     <select id="findNearestStores" resultType="com.example.starbucks.dto.StoreDto">
-        SELECT 
+        SELECT
+            id,
             store_name,
             x,
             y,
@@ -19,6 +20,14 @@
         FROM starbugs_store
         ORDER BY distance ASC
         LIMIT 20;
+    </select>
+
+    <select id="getStoreById" parameterType="int" resultType="com.example.starbucks.dto.StoreDto">
+        SELECT
+            store_name,
+            store_addr
+        FROM starbugs_store 
+        WHERE id = #{id}
     </select>
 
 </mapper>

@@ -32,7 +32,7 @@
                             data.forEach(store => {
                                 const li = document.createElement("li");
                                 li.innerHTML =
-                                    `<strong>${store.storeName}</strong> 
+                                    `<strong><a href="/order/store/${store.id}">${store.storeName}</a></strong> 
                                      (${store.storeAddr}) 
                                      - 거리: ${store.distance} km`;
                                 list.appendChild(li);

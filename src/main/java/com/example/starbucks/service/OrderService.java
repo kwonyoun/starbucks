@@ -19,5 +19,9 @@ public class OrderService {
     return orderDao.findNearestStores(lat, lng);
 }
 
+    public StoreDto getStoreById(int id) {
+        return orderDao.getStoreById(id);
+    }
+
     
 }

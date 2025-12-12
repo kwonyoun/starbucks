@@ -9,7 +9,10 @@ import com.example.starbucks.dto.StoreDto;
 import com.example.starbucks.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("order")
+@Slf4j
 public class OrderController {
 
     private final OrderService orderService;
@@ -34,5 +38,14 @@ public class OrderController {
 
         return orderService.getNearest(lat, lng);
     }
+
+    @GetMapping("store/{id}")
+    public String getStoreDetail(@PathVariable int id, Model model) {
+        StoreDto store = orderService.getStoreById(id);
+        log.info("getStoreById = {}", store);
+        model.addAttribute("store", store);
+        return "storeDetail";
+    }
+
     
 }
