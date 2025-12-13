@@ -9,6 +9,43 @@
     <h1>사이렌오더</h1>
     <a th:href="@{/}">home</a>
 
+    <h2>내 주변 매장</h2>
+    <p>사용자의 현재 위치 기반 근처 20개 매장을 보여줍니다.</p>
+
+    <ul id="storeList">
+        <li>현재 위치를 가져오는 중...</li>
+    </ul>
+
+    <script>
+        window.onload = function () {
+            navigator.geolocation.getCurrentPosition(
+                function (pos) {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+
+                    fetch(`/order/list?lat=${lat}&lng=${lng}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const list = document.getElementById("storeList");
+                            list.innerHTML = "";
+
+                            data.forEach(store => {
+                                const li = document.createElement("li");
+                                li.innerHTML =
+                                    `<strong><a href="/order/store/${store.id}">${store.storeName}</a></strong> 
+                                     (${store.storeAddr}) 
+                                     - 거리: ${store.distance} km`;
+                                list.appendChild(li);
+                            });
+                        });
+                },
+                function (err) {
+                    alert("위치 권한을 허용해야 가까운 매장을 찾을 수 있습니다.");
+                }
+            );
+        };
+    </script>
+
 </div>
 </body>
 </html>

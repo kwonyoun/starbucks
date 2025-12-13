@@ -12,6 +12,6 @@ public class StoreDto {
     private float y;
     private String storeType;
     private String storeAddr;
-    
+    private double distance; //위치기반 매장거리계산
 }
 
