@@ -24,6 +24,7 @@
 
     <select id="getStoreById" parameterType="int" resultType="com.example.starbucks.dto.StoreDto">
         SELECT
+            id, 
             store_name,
             store_addr
         FROM starbugs_store 

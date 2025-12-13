@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.example.starbucks.dto.StoreDto;
+import com.example.starbucks.service.MenuService;
 import com.example.starbucks.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class OrderController {
 
     private final OrderService orderService;
+    private final MenuService menuService;
 
     @GetMapping
     public String getOrderPage() {
@@ -46,6 +51,33 @@ public class OrderController {
         model.addAttribute("store", store);
         return "storeDetail";
     }
+
+    @GetMapping("menu")
+    public String menuPage(
+            @RequestParam int storeId,
+            @RequestParam String orderType,
+            Model model) {
+
+        StoreDto store = orderService.getStoreById(storeId);
+        model.addAttribute("store", store);
+        model.addAttribute("orderType", orderType);
+        model.addAttribute("menuList", menuService.getMenus());
+
+        log.info("storeId = {}", storeId);
+        log.info("store = {}", store);
+        // log.info("menulist = {}", menuService.getMenus());
+
+        return "menu";
+    }
+
+    @PostMapping("cart/add")
+    public String postMethodName(@RequestBody String entity) {
+        //TODO: process POST request
+        
+        return entity;
+    }
+    
+
 
     
 }
