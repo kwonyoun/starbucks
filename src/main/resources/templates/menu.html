@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>메뉴 선택</title>
+</head>
+<body>
+
+<h2 th:text="${store.storeName}"></h2>
+<p>
+    주문 방식:
+    <strong th:text="${orderType}"></strong>
+</p>
+
+<hr>
+
+<h3>음료 메뉴</h3>
+
+<div th:each="menu : ${menuList}">
+    <p th:text="${menu.menuName}"></p>
+    <p th:text="${menu.category}"></p>
+
+    <form th:action="@{/order/cart/add}" method="post">
+        <input type="hidden" name="menuId" th:value="${menu.id}">
+        <input type="hidden" name="storeId" th:value="${store.id}">
+        <input type="hidden" name="orderType" th:value="${orderType}">
+        <button type="submit">담기</button>
+    </form>
+
+    <hr>
+</div>
+
+</body>
+</html>

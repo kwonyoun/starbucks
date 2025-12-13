@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.starbucks.dao.MenuDao">
+
+    <insert id="insertMenu" parameterType="com.example.starbucks.dto.MenuDto">
+        INSERT INTO starbugs_menu (
+            category, volume, menu_name,
+            kcal, sugars, protein, sodium,
+            saturated_fat, caffeine
+        ) VALUES (
+            #{category}, #{volume}, #{menuName},
+            #{kcal}, #{sugars}, #{protein}, #{sodium},
+            #{saturatedFat}, #{caffeine}
+        )
+    </insert>
+
+    <select id="findAllMenus">
+        SELECT * FROM starbugs_menu
+    </select>
+
+
+</mapper>

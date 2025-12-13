@@ -5,11 +5,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<div>
+    <div>
 
-    <h2 th:text="${store.storeName}">매장명</h2>
-    <p th:text="${store.storeAddr}"></p>
+        <h2 th:text="${store.storeName}">매장명</h2>
+        <p th:text="${store.storeAddr}"></p>
 
-</div>
+    </div>
+    <h3>주문 방식 선택</h3>
+
+    <form th:action="@{/order/menu}" method="get">
+        <!-- 매장 ID 유지 -->
+        <input type="hidden" name="storeId" th:value="${store.id}" />
+
+        <label>
+            <input type="radio" name="orderType" value="TOGO" required>
+            TO GO
+        </label>
+
+        <label>
+            <input type="radio" name="orderType" value="STORE">
+            매장
+        </label>
+
+        <br><br>
+        <button type="submit">메뉴 선택하기</button>
+    </form>
 </body>
 </html>
