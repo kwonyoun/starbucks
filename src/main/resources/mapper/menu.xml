@@ -19,5 +19,9 @@
         SELECT * FROM starbugs_menu
     </select>
 
+    <select id="findMenuById">
+        SELECT id, menu_name FROM starbugs_menu WHERE id = #{id}
+    </select>
+
 
 </mapper>

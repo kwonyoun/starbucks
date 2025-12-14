@@ -24,6 +24,10 @@ public class MenuService {
         return menuDao.findAllMenus();
     }
 
+    public MenuDto findMenuById(int menuId){
+        return menuDao.findMenuById(menuId);
+    }
+
     public void insertFromCsv(String resourcePath) {
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(resourcePath)) {
             if (inputStream == null) {
