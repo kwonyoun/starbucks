@@ -9,6 +9,7 @@ import com.example.starbucks.dto.MenuDto;
 @Mapper
 public interface MenuDao {
     List<MenuDto> findAllMenus();
+    MenuDto findMenuById(int menuId);
     void insertMenu(MenuDto menu);
     
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>장바구니</title>
+</head>
+<body>
+
+<h2>장바구니</h2>
+
+<table border="1">
+    <tr>
+        <th>매장</th>
+        <th>메뉴</th>
+        <th>수량</th>
+    </tr>
+
+    <tr th:each="item : ${cart}">
+        <td th:text="${item.storeName}"></td>
+        <td th:text="${item.menuName}"></td>
+        <td th:text="${item.quantity}"></td>
+    </tr>
+</table>
+
+<hr>
+
+<form th:action="@{/order/checkout}" method="post">
+    <button type="submit">주문하기</button>
+</form>
+
+</body>
+</html>
