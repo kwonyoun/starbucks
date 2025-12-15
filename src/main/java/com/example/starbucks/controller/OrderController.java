@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import com.example.starbucks.dto.CartItemDto;
 import com.example.starbucks.dto.StoreDto;
 import com.example.starbucks.service.MenuService;
 import com.example.starbucks.service.OrderService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -70,14 +70,54 @@ public class OrderController {
         return "menu";
     }
 
-    @PostMapping("cart/add")
-    public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
-        
-        return entity;
+    @PostMapping("confirm")
+    public String confirmOrder(HttpSession session, Model model) {
+
+        List<CartItemDto> cart =
+                (List<CartItemDto>) session.getAttribute("cart");
+
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        // int totalPrice = cart.stream()
+        //         .mapToInt(CartItemDto::getTotalPrice)
+        //         .sum();
+
+        model.addAttribute("cart", cart);
+        // model.addAttribute("totalPrice", totalPrice);
+
+        return "orderConfirm";
     }
-    
+
+    @GetMapping("/confirm")
+    public String getOrderConfirmPage() {
+        return "orderConfirm";
+    }
+
+    @PostMapping("complete")
+    public String completeOrder(HttpSession session) {
+
+        List<CartItemDto> cart =
+                (List<CartItemDto>) session.getAttribute("cart");
+
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        orderService.saveOrder(cart);
+
+        session.removeAttribute("cart"); // ⭐ 장바구니 비우기
+
+        return "redirect:/order/complete/result";
+    }
+
+    @GetMapping("complete/result")
+    public String orderCompletePage() {
+        return "orderComplete";
+    }
 
 
     
+
 }

@@ -31,4 +31,12 @@
         WHERE id = #{id}
     </select>
 
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO starbugs_order (
+            store_id, order_type, order_status
+        ) VALUES (
+            #{storeId}, #{orderType}, #{orderStatus}
+        )
+    </insert>
+
 </mapper>
