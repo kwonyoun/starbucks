@@ -17,7 +17,19 @@
     <tr th:each="item : ${cart}">
         <td th:text="${item.storeName}"></td>
         <td th:text="${item.menuName}"></td>
-        <td th:text="${item.quantity}"></td>
+        <td>
+            <form th:action="@{/cart/decrease}" method="post" style="display:inline">
+                <input type="hidden" name="menuId" th:value="${item.menuId}">
+                <button type="submit">-</button>
+            </form>
+
+            <span th:text="${item.quantity}"></span>
+
+            <form th:action="@{/cart/increase}" method="post" style="display:inline">
+                <input type="hidden" name="menuId" th:value="${item.menuId}">
+                <button type="submit">+</button>
+            </form>
+        </td>
     </tr>
 </table>
 
