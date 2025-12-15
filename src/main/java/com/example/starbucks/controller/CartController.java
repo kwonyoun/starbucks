@@ -1,6 +1,7 @@
 package com.example.starbucks.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -91,6 +92,54 @@ public class CartController {
 
         return "cart";
     }
+
+    @PostMapping("increase")
+    public String increaseQuantity(
+            @RequestParam int menuId,
+            HttpSession session) {
+
+        List<CartItemDto> cart =
+                (List<CartItemDto>) session.getAttribute("cart");
+
+        for (CartItemDto item : cart) {
+            if (item.getMenuId() == menuId) {
+                item.setQuantity(item.getQuantity() + 1);
+                break;
+            }
+        }
+
+        session.setAttribute("cart", cart);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("decrease")
+    public String decreaseQuantity(
+            @RequestParam int menuId,
+            HttpSession session) {
+
+        List<CartItemDto> cart =
+                (List<CartItemDto>) session.getAttribute("cart");
+
+        Iterator<CartItemDto> iterator = cart.iterator();
+
+        while (iterator.hasNext()) {
+            CartItemDto item = iterator.next();
+
+            if (item.getMenuId() == menuId) {
+                if (item.getQuantity() > 1) {
+                    item.setQuantity(item.getQuantity() - 1);
+                } else {
+                    iterator.remove(); // ⭐ 1이면 삭제
+                }
+                break;
+            }
+        }
+
+        session.setAttribute("cart", cart);
+        return "redirect:/cart";
+    }
+
+
 
     
 }
